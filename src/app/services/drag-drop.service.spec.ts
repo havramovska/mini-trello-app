@@ -48,20 +48,23 @@ describe('DragDropService', () => {
 
   describe('onDrop', () => {
     it('should handle same container drop (reordering)', () => {
-      const todoTasks = [...mockTasks];
+      const todoTasks = mockTasks.map(task => ({ ...task }));
+    
+      const containerRef = { data: todoTasks, id: 'todo-container' };
+    
       const mockEvent = {
-        previousContainer: { data: todoTasks, id: 'todo-container' },
-        container: { data: todoTasks, id: 'todo-container' },
+        previousContainer: containerRef,
+        container: containerRef,
         previousIndex: 0,
         currentIndex: 1
       } as CdkDragDrop<Task[]>;
-
+    
       spyOn(store, 'dispatch');
       
       service.onDrop(mockEvent);
-
+    
       expect(store.dispatch).not.toHaveBeenCalled();
-    });
+    });    
 
     it('should handle different container drop (status change)', () => {
       const todoTasks = [mockTasks[0]];
