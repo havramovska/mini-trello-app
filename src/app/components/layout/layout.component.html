@@ -26,9 +26,9 @@
       <select 
         [(ngModel)]="selectedPriority" 
         class="priority-select">
-        <option *ngFor="let priority of priorities" [value]="priority">
-          {{ priority }} Priority
-        </option>
+        <option value="High">🔴 High Priority</option>
+        <option value="Medium">🟡 Medium Priority</option>
+        <option value="Low">🟢 Low Priority</option>
       </select>
       
       <div class="form-buttons">

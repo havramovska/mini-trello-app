@@ -10,6 +10,12 @@
   </div>
   
   <div class="task-content">
+    <div class="status-section">
+      <span class="status-badge" [ngClass]="task.status">
+        {{ getStatusDisplayName(task.status) }}
+      </span>
+    </div>
+    
     <div *ngIf="task.loadingPriority" class="loading-spinner">
       <div class="spinner"></div>
       <span>Loading priority...</span>

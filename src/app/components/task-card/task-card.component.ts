@@ -13,4 +13,17 @@ import { Task } from '../../models';
 export class TaskCardComponent {
   @Input() task!: Task;
   @Output() deleteTask = new EventEmitter<string>();
+
+  getStatusDisplayName(status: 'todo' | 'in-progress' | 'done'): string {
+    switch (status) {
+      case 'todo':
+        return '📋 Todo';
+      case 'in-progress':
+        return '⚡ In Progress';
+      case 'done':
+        return '✅ Done';
+      default:
+        return status;
+    }
+  }
 } 

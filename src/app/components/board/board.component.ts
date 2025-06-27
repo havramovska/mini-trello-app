@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { Task, KanbanState } from '../../models';
+import { DragDropService } from '../../services';
 import * as KanbanActions from '../../store/kanban.actions';
 
 @Component({
@@ -20,7 +21,10 @@ export class BoardComponent implements OnInit {
   inProgressTasks: Task[] = [];
   doneTasks: Task[] = [];
 
-  constructor(private store: Store<{ kanban: KanbanState }>) {
+  constructor(
+    private store: Store<{ kanban: KanbanState }>,
+    private dragDropService: DragDropService
+  ) {
     this.tasks$ = this.store.select(state => state.kanban.tasks);
   }
 
@@ -48,32 +52,6 @@ export class BoardComponent implements OnInit {
   }
 
   onDrop(event: CdkDragDrop<Task[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-      
-      const task = event.container.data[event.currentIndex];
-      const newStatus = this.getStatusFromContainerId(event.container.id);
-      this.store.dispatch(KanbanActions.updateTaskStatus({ taskId: task.id, status: newStatus }));
-    }
-  }
-
-  private getStatusFromContainerId(containerId: string): 'todo' | 'in-progress' | 'done' {
-    switch (containerId) {
-      case 'todo-container':
-        return 'todo';
-      case 'in-progress-container':
-        return 'in-progress';
-      case 'done-container':
-        return 'done';
-      default:
-        return 'todo';
-    }
+    this.dragDropService.onDrop(event);
   }
 } 
