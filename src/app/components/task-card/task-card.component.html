@@ -1,6 +1,28 @@
 <div class="task-card">
-  <p class="task-title">{{ title }}</p>
-  <span *ngIf="priority" class="priority-badge" [ngClass]="priority.toLowerCase()">
-    {{ priority }}
-  </span>
+  <div class="task-header">
+    <h3 class="task-title">{{ task.title }}</h3>
+    <button 
+      class="delete-btn" 
+      (click)="deleteTask.emit(task.id)"
+      title="Delete task">
+      ✕
+    </button>
+  </div>
+  
+  <div class="task-content">
+    <div *ngIf="task.loadingPriority" class="loading-spinner">
+      <div class="spinner"></div>
+      <span>Loading priority...</span>
+    </div>
+    
+    <div *ngIf="task.priority && !task.loadingPriority" class="priority-section">
+      <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">
+        Priority: {{ task.priority }}
+      </span>
+    </div>
+    
+    <div *ngIf="task.errorPriority" class="error-message">
+      <span class="error-text">⚠️ {{ task.errorPriority }}</span>
+    </div>
+  </div>
 </div> 

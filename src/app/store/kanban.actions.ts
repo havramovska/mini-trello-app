@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
-import { Task } from '../models';
+import { Task, Priority } from '../models';
 
 export const addTask = createAction(
   '[Kanban] Add Task',
-  props<{ title: string }>()
+  props<{ title: string; priority?: Priority }>()
 );
 
 export const addTaskWithId = createAction(
   '[Kanban] Add Task With ID',
-  props<{ title: string; taskId: string }>()
+  props<{ title: string; taskId: string; priority?: Priority }>()
 );
 
 export const updateTask = createAction(
@@ -33,7 +33,7 @@ export const fetchPriority = createAction(
 
 export const fetchPrioritySuccess = createAction(
   '[Kanban] Fetch Priority Success',
-  props<{ taskId: string; priority: 'High' | 'Medium' | 'Low' }>()
+  props<{ taskId: string; priority: Priority }>()
 );
 
 export const fetchPriorityFailure = createAction(

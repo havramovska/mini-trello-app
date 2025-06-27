@@ -2,12 +2,18 @@
   <!-- Todo Column -->
   <div class="kanban-column todo-column">
     <h2>📋 Todo</h2>
-    <div class="task-list">
+    <div 
+      cdkDropList
+      id="todo-container"
+      [cdkDropListData]="todoTasks"
+      [cdkDropListConnectedTo]="['in-progress-container', 'done-container']"
+      (cdkDropListDropped)="onDrop($event)"
+      class="task-list">
       <app-task-card 
         *ngFor="let task of todoTasks" 
-        [title]="task.title"
-        [priority]="task.priority"
-        status="todo">
+        [task]="task"
+        cdkDrag
+        (deleteTask)="onDeleteTask($event)">
       </app-task-card>
     </div>
   </div>
@@ -15,12 +21,18 @@
   <!-- In Progress Column -->
   <div class="kanban-column in-progress-column">
     <h2>⚡ In Progress</h2>
-    <div class="task-list">
+    <div 
+      cdkDropList
+      id="in-progress-container"
+      [cdkDropListData]="inProgressTasks"
+      [cdkDropListConnectedTo]="['todo-container', 'done-container']"
+      (cdkDropListDropped)="onDrop($event)"
+      class="task-list">
       <app-task-card 
         *ngFor="let task of inProgressTasks" 
-        [title]="task.title"
-        [priority]="task.priority"
-        status="in-progress">
+        [task]="task"
+        cdkDrag
+        (deleteTask)="onDeleteTask($event)">
       </app-task-card>
     </div>
   </div>
@@ -28,12 +40,18 @@
   <!-- Done Column -->
   <div class="kanban-column done-column">
     <h2>✅ Done</h2>
-    <div class="task-list">
+    <div 
+      cdkDropList
+      id="done-container"
+      [cdkDropListData]="doneTasks"
+      [cdkDropListConnectedTo]="['todo-container', 'in-progress-container']"
+      (cdkDropListDropped)="onDrop($event)"
+      class="task-list">
       <app-task-card 
         *ngFor="let task of doneTasks" 
-        [title]="task.title"
-        [priority]="task.priority"
-        status="done">
+        [task]="task"
+        cdkDrag
+        (deleteTask)="onDeleteTask($event)">
       </app-task-card>
     </div>
   </div>

@@ -1,10 +1,10 @@
 .task-card {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  cursor: grab;
   transition: transform 0.2s, box-shadow 0.2s;
   
   &:hover {
@@ -12,18 +12,96 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .task-title {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #374151;
-    font-size: 0.9rem;
+  &:active {
+    cursor: grabbing;
   }
+}
+
+.task-card.cdk-drag-preview {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg);
+}
+
+.task-card.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #f3f4f6;
+  border: 2px dashed #d1d5db;
+}
+
+.task-card.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  
+  .task-title {
+    font-weight: 600;
+    color: #374151;
+    font-size: 1rem;
+    margin: 0;
+    flex: 1;
+    line-height: 1.4;
+  }
+  
+  .delete-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-left: 0.5rem;
+    
+    &:hover {
+      color: #ef4444;
+      background-color: #fef2f2;
+    }
+  }
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+  
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.priority-section {
+  display: flex;
+  align-items: center;
 }
 
 .priority-badge {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 500;
   
@@ -40,5 +118,13 @@
   &.low {
     background-color: #d1fae5;
     color: #059669;
+  }
+}
+
+.error-message {
+  .error-text {
+    color: #dc2626;
+    font-size: 0.875rem;
+    font-weight: 500;
   }
 } 

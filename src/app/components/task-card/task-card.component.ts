@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { Task } from '../../models';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CdkDrag],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent {
-  @Input() title: string = '';
-  @Input() priority?: 'High' | 'Medium' | 'Low';
-  @Input() status: 'todo' | 'in-progress' | 'done' = 'todo';
+  @Input() task!: Task;
+  @Output() deleteTask = new EventEmitter<string>();
 } 

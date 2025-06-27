@@ -13,7 +13,7 @@ function findTaskIndex(tasks: any[], taskId: string): number {
 export const kanbanReducer = createReducer(
   initialState,
   
-  on(KanbanActions.addTaskWithId, (state, { title, taskId }) => ({
+  on(KanbanActions.addTaskWithId, (state, { title, taskId, priority }) => ({
     ...state,
     tasks: [
       ...state.tasks,
@@ -21,7 +21,9 @@ export const kanbanReducer = createReducer(
         id: taskId,
         title,
         status: 'todo' as const,
-        loadingPriority: true
+        priority,
+        loadingPriority: !priority,
+        errorPriority: undefined
       }
     ]
   })),

@@ -1,0 +1,40 @@
+<div class="kanban-container">
+  <div class="kanban-header">
+    <h1>🎯 Mini Trello App</h1>
+    <p>Angular Kanban board with NgRx state management</p>
+  </div>
+  
+  <app-board></app-board>
+
+  <div class="add-task-section">
+    <button 
+      *ngIf="!showAddForm" 
+      class="add-task-btn" 
+      (click)="toggleAddForm()">
+      Add New Task
+    </button>
+    
+    <div *ngIf="showAddForm" class="add-task-form">
+      <input 
+        type="text" 
+        [(ngModel)]="newTaskTitle" 
+        placeholder="Enter task title..."
+        class="task-input"
+        (keyup.enter)="addTask()"
+        autofocus>
+      
+      <select 
+        [(ngModel)]="selectedPriority" 
+        class="priority-select">
+        <option *ngFor="let priority of priorities" [value]="priority">
+          {{ priority }} Priority
+        </option>
+      </select>
+      
+      <div class="form-buttons">
+        <button class="add-btn" (click)="addTask()">Add Task</button>
+        <button class="cancel-btn" (click)="cancelAdd()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div> 
