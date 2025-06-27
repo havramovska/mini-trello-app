@@ -1,0 +1,6 @@
+<div class="task-card">
+  <p class="task-title">{{ title }}</p>
+  <span *ngIf="priority" class="priority-badge" [ngClass]="priority.toLowerCase()">
+    {{ priority }}
+  </span>
+</div> 

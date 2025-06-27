@@ -1,0 +1,40 @@
+<div class="kanban-board">
+  <!-- Todo Column -->
+  <div class="kanban-column todo-column">
+    <h2>📋 Todo</h2>
+    <div class="task-list">
+      <app-task-card 
+        *ngFor="let task of todoTasks" 
+        [title]="task.title"
+        [priority]="task.priority"
+        status="todo">
+      </app-task-card>
+    </div>
+  </div>
+
+  <!-- In Progress Column -->
+  <div class="kanban-column in-progress-column">
+    <h2>⚡ In Progress</h2>
+    <div class="task-list">
+      <app-task-card 
+        *ngFor="let task of inProgressTasks" 
+        [title]="task.title"
+        [priority]="task.priority"
+        status="in-progress">
+      </app-task-card>
+    </div>
+  </div>
+
+  <!-- Done Column -->
+  <div class="kanban-column done-column">
+    <h2>✅ Done</h2>
+    <div class="task-list">
+      <app-task-card 
+        *ngFor="let task of doneTasks" 
+        [title]="task.title"
+        [priority]="task.priority"
+        status="done">
+      </app-task-card>
+    </div>
+  </div>
+</div> 
